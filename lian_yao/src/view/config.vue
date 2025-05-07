@@ -31,7 +31,13 @@ import BaseConfig from '@/components/BaseConfig.vue';
 import GoodsConfig from '@/components/GoodsConfig.vue';
 const activeTab = ref<string>('base');
 const config = ref<Config>({
-  base: {},
+  base: {
+    tl: 1,
+    max_bb_price: 7999,
+    check_tw_time: 3600,
+    shop_name_keys: [],
+    bb_keys: [],
+  },
   goods: [],
 });
 onMounted(() => {

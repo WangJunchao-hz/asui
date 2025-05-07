@@ -16,7 +16,13 @@ export interface CardGoods {
 }
 
 export interface Config {
-  base: {},
+  base: {
+    tl: number
+    max_bb_price: number
+    check_tw_time: number
+    shop_name_keys: string[]
+    bb_keys: string[]
+  },
   goods: Good[]
 }
 
