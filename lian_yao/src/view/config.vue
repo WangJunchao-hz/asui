@@ -37,6 +37,7 @@ const config = ref<Config>({
     check_tw_time: 3600,
     shop_name_keys: [],
     bb_keys: [],
+    min_money: 100000,
   },
   goods: [],
 });

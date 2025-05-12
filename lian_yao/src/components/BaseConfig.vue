@@ -50,6 +50,21 @@
     </van-row>
     <van-row>
       <van-col span="12">
+        <van-field label-width="56" name="min_money" label="最少金币">
+          <template #input>
+            <van-stepper
+              v-model="props.base.min_money"
+              min="0"
+              button-size="24px"
+              input-width="90px"
+              step="10000"
+            />
+          </template>
+        </van-field>
+      </van-col>
+    </van-row>
+    <van-row>
+      <van-col span="12">
         <van-field label-width="70" name="shop_name_keys" label="宝宝关键字">
           <template #input>
             <span>{{ props.base.bb_keys.join(',') }}</span>

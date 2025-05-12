@@ -22,6 +22,7 @@ export interface Config {
     check_tw_time: number
     shop_name_keys: string[]
     bb_keys: string[]
+    min_money: number
   },
   goods: Good[]
 }

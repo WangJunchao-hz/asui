@@ -1,28 +1,25 @@
 <template>
   <div class="tip">
-    <div class="item">
-      <span class="label">战绩：</span>
-      <span class="content">{{ zhan_ji }}</span>
-    </div>
-    <div class="item">
-      <span class="label">日志：</span>
-      <span class="content">{{ log }}</span>
-    </div>
+    <div class="item" style="margin-right: 6px">{{ log.total }}</div>
+    <div class="item">{{ log.msg }}</div>
   </div>
 </template>
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
-const zhan_ji = ref('');
-const log = ref('');
+const log = ref({
+  msg: '',
+  total: '',
+});
 onMounted(() => {
   window.airscript.call('tip_mounted', 'onLogs');
 });
-window.onLogs = (data: { zhan_ji: string; log: string }) => {
-  if (data.zhan_ji) {
-    zhan_ji.value = data.zhan_ji;
+window.onLogs = (data: string) => {
+  const msg = data.split('&');
+  if (msg[0]) {
+    log.value.msg = msg[0];
   }
-  if (data.log) {
-    log.value = data.log;
+  if (msg[1]) {
+    log.value.total = msg[1];
   }
 };
 </script>
@@ -33,11 +30,12 @@ window.onLogs = (data: { zhan_ji: string; log: string }) => {
   right: 0;
   bottom: 0;
   top: 0;
-  padding: 6px;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
   .item {
-    color: #fff;
-    font-size: 8px;
+    color: #ffffff;
+    font-size: 9px;
+    flex-shrink: 0;
   }
 }
 </style>
