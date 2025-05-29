@@ -23,6 +23,9 @@ export interface Config {
     shop_name_keys: string[]
     bb_keys: string[]
     min_money: number
+    tw_local: string,
+    tw_pos_x: number,
+    tw_pos_y: number
   },
   goods: Good[]
 }

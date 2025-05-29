@@ -38,6 +38,9 @@ const config = ref<Config>({
     shop_name_keys: [],
     bb_keys: [],
     min_money: 100000,
+    tw_local: '',
+    tw_pos_x: 0,
+    tw_pos_y: 0,
   },
   goods: [],
 });
