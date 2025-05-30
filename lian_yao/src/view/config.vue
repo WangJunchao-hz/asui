@@ -41,6 +41,7 @@ const config = ref<Config>({
     tw_local: '',
     tw_pos_x: 0,
     tw_pos_y: 0,
+    tw_num: 10,
   },
   goods: [],
 });
@@ -49,6 +50,11 @@ onMounted(() => {
 });
 
 const start = () => {
+  config.value.base.shop_name_keys =
+    config.value.base.shop_key_str!.split('，');
+  config.value.base.bb_keys = config.value.base.bb_key_str!.split('，');
+  delete config.value.base.shop_key_str;
+  delete config.value.base.bb_key_str;
   const res: any = {
     base: config.value.base,
     goods: {},
@@ -83,6 +89,8 @@ const stop = () => {
 };
 window.onConfig = (data: { base: Config['base']; goods: any }) => {
   config.value.base = data.base;
+  config.value.base.shop_key_str = data.base.shop_name_keys.join('，');
+  config.value.base.bb_key_str = data.base.bb_keys.join('，');
   config.value.goods = [];
   const goods = data.goods;
   if (goods) {

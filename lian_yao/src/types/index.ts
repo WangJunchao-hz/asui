@@ -25,7 +25,10 @@ export interface Config {
     min_money: number
     tw_local: string,
     tw_pos_x: number,
-    tw_pos_y: number
+    tw_pos_y: number,
+    shop_key_str?: string,
+    bb_key_str?: string,
+    tw_num: number,
   },
   goods: Good[]
 }
