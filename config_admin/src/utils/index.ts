@@ -76,33 +76,38 @@ export function generatePrice(range: [number, number], suffix: string, val: any)
 }
 
 export function deepAdjustPrice(obj: any, val: any) {
-  const { qw, bw5, bw1, sw5, sw1, w5, w1 } = val
+  const { qw, bw5, bw1, sw5, sw1, w5, w1, isPer, per } = val
   const keys = Object.keys(obj)
   if (keys.includes('isLast')) {
     for (const key of keys) {
       if (key !== 'isLast') {
         const price = obj[key].value
         if (price > 0) {
-          if (price > 10000000) {
-            obj[key].value = obj[key].value + qw
-          }
-          else if (price > 5000000) {
-            obj[key].value = obj[key].value + bw5
-          }
-          else if (price > 1000000) {
-            obj[key].value = obj[key].value + bw1
-          }
-          else if (price > 500000) {
-            obj[key].value = obj[key].value + sw5
-          }
-          else if (price > 100000) {
-            obj[key].value = obj[key].value + sw1
-          }
-          else if (price > 50000) {
-            obj[key].value = obj[key].value + w5
+          if (isPer) {
+            obj[key].value = Math.round(obj[key].value * per)
           }
           else {
-            obj[key].value = obj[key].value + w1
+            if (price > 10000000) {
+              obj[key].value = obj[key].value + qw
+            }
+            else if (price > 5000000) {
+              obj[key].value = obj[key].value + bw5
+            }
+            else if (price > 1000000) {
+              obj[key].value = obj[key].value + bw1
+            }
+            else if (price > 500000) {
+              obj[key].value = obj[key].value + sw5
+            }
+            else if (price > 100000) {
+              obj[key].value = obj[key].value + sw1
+            }
+            else if (price > 50000) {
+              obj[key].value = obj[key].value + w5
+            }
+            else {
+              obj[key].value = obj[key].value + w1
+            }
           }
         }
       }
