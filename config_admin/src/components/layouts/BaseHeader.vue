@@ -2,19 +2,26 @@
 import {
   CopyDocument,
   Delete,
-  Edit,
   Finished,
   Plus,
+  Refresh,
 } from '@element-plus/icons-vue'
 import { toRefs } from 'vue'
 import { toggleDark } from '~/composables'
 
-const props = defineProps<{ nameData: { active: string, list: string[] } }>()
-const emit = defineEmits(['onClick'])
-const { nameData } = toRefs(props)
+const props = defineProps<{ active: { type: string, cfg: string }, types: string[], lists: string[] }>()
+const emit = defineEmits(['onClick', 'onChange'])
+const { active, types, lists } = toRefs(props)
 
-function handleClick(type: 'add' | 'edit' | 'delete' | 'save' | 'copy') {
-  emit('onClick', type, nameData.value.active)
+function handleClick(type: 'add' | 'delete' | 'save' | 'copy' | 'clear') {
+  emit('onClick', type, active.value)
+}
+function handleChange(type: 0 | 1) {
+  if (type === 0) {
+    active.value.cfg = '默认'
+  }
+  localStorage.setItem('SW_Active', JSON.stringify(active.value))
+  emit('onChange', active.value)
 }
 </script>
 
@@ -26,22 +33,29 @@ function handleClick(type: 'add' | 'edit' | 'delete' | 'save' | 'copy') {
         <span>脚本配置管理系统</span>
       </div>
     </el-menu-item>
-    <el-menu-item>
-      <el-select v-model="nameData.active" filterable clearable placeholder="选择配置" style="width: 240px">
-        <el-option v-for="item in nameData.list" :key="item" :label="item" :value="item" />
+    <el-menu-item index="">
+      <el-select
+        v-model="active.type" filterable placeholder="选择脚本类型" style="width: 120px" @change="handleChange(0)"
+        @click.stop
+      >
+        <el-option v-for="item in types" :key="item" :label="item" :value="item" />
       </el-select>
-      <el-button-group class="ml-4">
+      <el-select
+        v-model="active.cfg" filterable placeholder="选择配置" style="width: 200px" @change="handleChange(1)"
+        @click.stop
+      >
+        <el-option v-for="item in lists" :key="item" :label="item" :value="item" />
+      </el-select>
+    </el-menu-item>
+    <el-menu-item index="">
+      <el-button-group>
         <el-button
           style="padding-left: 12px;padding-right: 8px;" title="新增" :icon="Plus"
           @click.stop="handleClick('add')"
         />
         <el-button
-          style="padding-left: 12px;padding-right: 8px;" title="编辑" :icon="Edit"
-          @click.stop="handleClick('edit')"
-        />
-        <el-button
-          style="padding-left: 12px;padding-right: 8px;" title="删除" :icon="Delete"
-          @click.stop="handleClick('delete')"
+          style="padding-left: 12px;padding-right: 8px;" :disabled="active.cfg === '默认'" title="删除"
+          :icon="Delete" @click.stop="handleClick('delete')"
         />
         <el-button
           style="padding-left: 12px;padding-right: 8px;" title="保存" :icon="Finished"
@@ -51,9 +65,13 @@ function handleClick(type: 'add' | 'edit' | 'delete' | 'save' | 'copy') {
           style="padding-left: 12px;padding-right: 8px;" title="复制" :icon="CopyDocument"
           @click.stop="handleClick('copy')"
         />
+        <el-button
+          style="padding-left: 12px;padding-right: 8px;" title="重置" :icon="Refresh"
+          @click.stop="handleClick('clear')"
+        />
       </el-button-group>
     </el-menu-item>
-    <el-menu-item h="full" @click="toggleDark()">
+    <el-menu-item index="" h="full" @click="toggleDark()">
       <button class="w-full cursor-pointer border-none bg-transparent" style="height: var(--ep-menu-item-height)">
         <i inline-flex i="dark:ep-moon ep-sunny" />
       </button>
@@ -63,7 +81,7 @@ function handleClick(type: 'add' | 'edit' | 'delete' | 'save' | 'copy') {
 
 <style lang="scss">
 .el-menu-demo {
-  &.ep-menu--horizontal > .ep-menu-item:nth-child(2) {
+  &.ep-menu--horizontal > .ep-menu-item:nth-child(3) {
     margin-right: auto;
   }
 }
