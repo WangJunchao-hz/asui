@@ -18,7 +18,7 @@
 import { ref, onMounted } from 'vue';
 import { showConfirmDialog } from 'vant';
 import { showToast } from 'vant';
-const config = ref<any>();
+const config = ref("");
 onMounted(() => {
   if (window.airscript) {
     window.airscript.call('mounted', 'onConfig');
@@ -27,7 +27,11 @@ onMounted(() => {
 
 const start = () => {
   // console.log(config.value);
-  window.airscript.call('start', config.value);
+  if (config.value) {
+    window.airscript.call('start', config.value);
+  } else {
+    showToast('请输入配置！');
+  }
 };
 
 const stop = () => {
