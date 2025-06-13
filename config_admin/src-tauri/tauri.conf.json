@@ -1,6 +1,6 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "swmh_config_admin",
+  "productName": "十围梦幻脚本管理",
   "version": "0.1.0",
   "identifier": "com.swmh.cfgadmin",
   "build": {
@@ -27,11 +27,11 @@
     "active": true,
     "targets": "all",
     "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
+      "icons/logo32x32.png",
+      "icons/logo128x128.png",
+      "icons/logo256x256.png",
+      "icons/logo.icns",
+      "icons/logoico.ico"
     ]
   }
 }
