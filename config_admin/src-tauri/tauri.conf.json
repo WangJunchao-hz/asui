@@ -1,6 +1,6 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "十围梦幻脚本管理",
+  "productName": "swmh_cfgadmin",
   "version": "0.1.0",
   "identifier": "com.swmh.cfgadmin",
   "build": {

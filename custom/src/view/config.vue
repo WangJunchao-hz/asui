@@ -1,9 +1,18 @@
 <template>
   <div class="layout">
-    <div class="header">VIP 炼妖</div>
+    <div class="header">十围梦幻 VIP</div>
     <div class="body">
-      <van-field v-model="config" type="textarea" label-align="top" label="粘贴配置" required placeholder="必须粘贴配置不然脚本无法启动"
-        rows="9" />
+      <van-field
+        v-model="config"
+        type="textarea"
+        disabled
+        label-align="top"
+        label="脚本配置"
+        required
+        placeholder="必须粘贴配置不然脚本无法启动"
+        rows="9"
+        @paste="getCopy"
+      />
     </div>
     <div class="footer">
       <van-action-bar>
@@ -18,7 +27,14 @@
 import { ref, onMounted } from 'vue';
 import { showConfirmDialog } from 'vant';
 import { showToast } from 'vant';
-const config = ref("");
+
+const config = ref('');
+const getCopy = (e: any) => {
+  const pasteData = e.clipboardData || window.clipboardData;
+  config.value = pasteData.getData('text/plain');
+  showToast('粘贴成功！');
+  e.preventDefault(); // 阻止默认粘贴行为
+};
 onMounted(() => {
   if (window.airscript) {
     window.airscript.call('mounted', 'onConfig');
@@ -46,7 +62,10 @@ const stop = () => {
   });
 };
 window.onConfig = (data: any) => {
-  config.value = JSON.stringify(data);
+  const cfg_str = JSON.stringify(data);
+  if (cfg_str.includes('基本设置')) {
+    config.value = cfg_str;
+  }
 };
 </script>
 
