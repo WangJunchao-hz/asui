@@ -12,6 +12,11 @@ const { data, label } = toRefs(props)
 const addModal = ref({
   visible: false,
 })
+const lists = computed(() => {
+  console.log(deepObjToArray(data.value))
+
+  return deepObjToArray(data.value)
+})
 const addForm = ref({
   name: '',
   props: [] as any[],
@@ -122,7 +127,7 @@ function handleDaoJuChange() {
       </el-button-group>
     </div>
     <el-collapse expand-icon-position="left">
-      <el-collapse-item v-for="list in data" :key="list.label" :title="list.label" :name="list.label">
+      <el-collapse-item v-for="list in lists" :key="list.label" :title="list.label" :name="list.label">
         <template #title>
           <span>{{ list.label }}</span>
           <el-button-group>

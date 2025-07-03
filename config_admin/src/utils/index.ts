@@ -61,7 +61,7 @@ export function getKeysAsArray(obj: any): string[] {
 
   return result
 }
-export function deepObjToArray(obj: any) {
+export function deepObjToArray(obj: any): any {
   return Object.entries(obj).map(([label, value]) => {
     const keys = Object.keys(value as any)
 
@@ -73,7 +73,7 @@ export function deepObjToArray(obj: any) {
     // 否则递归处理子对象
     const data = keys.length > 1
       ? deepObjToArray(value)
-      : { [keys[0]]: value[keys[0]] }
+      : { [keys[0]]: (value as any)[keys[0]] }
 
     return { label, data }
   })
