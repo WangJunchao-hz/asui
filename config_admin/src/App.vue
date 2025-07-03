@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { computed, ref } from 'vue'
+import { computed, provide, ref } from 'vue'
 import useClipboard from 'vue-clipboard3'
 import default_data from './defaults'
+import daoJuMap from './defaults/dao_ju'
 import { deepMergeConfig } from './utils'
 
 const { toClipboard } = useClipboard()
-
+provide('DaoJuMap', daoJuMap)
 const cache_active = localStorage.getItem('SW_Active')
 const active = cache_active
   ? ref(JSON.parse(cache_active))
@@ -37,7 +38,6 @@ if (!active.value.cfg) {
 }
 
 const config = computed(() => activeConfig.value[active.value.cfg])
-
 const addModal = ref({
   visible: false,
   formLabelWidth: '88px',

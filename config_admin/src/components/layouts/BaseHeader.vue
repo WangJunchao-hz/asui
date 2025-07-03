@@ -71,10 +71,12 @@ function handleChange(type: 0 | 1) {
         />
       </el-button-group>
     </el-menu-item>
-    <el-menu-item index="" h="full" @click="toggleDark()">
-      <button class="w-full cursor-pointer border-none bg-transparent" style="height: var(--ep-menu-item-height)">
-        <i inline-flex i="dark:ep-moon ep-sunny" />
-      </button>
+    <el-menu-item index="">
+      <el-button-group>
+        <el-button style="padding-left: 8px;padding-right: 8px;" @click.stop="toggleDark()">
+          <i i="dark:ep-moon ep-sunny" />
+        </el-button>
+      </el-button-group>
     </el-menu-item>
   </el-menu>
 </template>

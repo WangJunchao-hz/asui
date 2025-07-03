@@ -49,22 +49,34 @@ export function deepMerge(
   }
   return json2
 }
+export function getKeysAsArray(obj: any): string[] {
+  const result: string[] = []
+  let current = obj
 
+  while (Object.keys(current).length > 0) {
+    const key = Object.keys(current)[0]
+    result.push(key)
+    current = current[key]
+  }
+
+  return result
+}
 export function deepObjToArray(obj: any) {
-  if (Object.prototype.toString.call(obj) === '[object Object]' && !Object.keys(obj).includes('isLast')) {
-    const arr: any[] = []
-    for (const key in obj) {
-      const item = {
-        label: key,
-        data: deepObjToArray(obj[key]),
-      }
-      arr.push(item)
+  return Object.entries(obj).map(([label, value]) => {
+    const keys = Object.keys(value as any)
+
+    // 如果子对象有value属性，直接返回data为对象
+    if (keys.length === 1 && keys[0] === 'value') {
+      return { label, data: value }
     }
-    return arr
-  }
-  else {
-    return obj
-  }
+
+    // 否则递归处理子对象
+    const data = keys.length > 1
+      ? deepObjToArray(value)
+      : { [keys[0]]: value[keys[0]] }
+
+    return { label, data }
+  })
 }
 
 export function generatePrice(range: [number, number], suffix: string, val: any) {
