@@ -50,33 +50,71 @@ export function deepMerge(
   return json2
 }
 export function getKeysAsArray(obj: any): string[] {
-  const result: string[] = []
+  const result: any[] = []
   let current = obj
 
   while (Object.keys(current).length > 0) {
-    const key = Object.keys(current)[0]
-    result.push(key)
-    current = current[key]
+    const keys = Object.keys(current).filter(key => !key.includes('_'))
+    if (keys.length) {
+      current = current[keys[0]]
+      let comp = 'input'
+      if (current._opts) {
+        comp = 'select'
+      }
+      if (current._min || current._max) {
+        comp = 'inputNumber'
+      }
+      result.push({ key: keys[0], comp, opts: current._opts, min: current._min, max: current._max })
+    }
+    else {
+      break
+    }
   }
 
   return result
 }
 export function deepObjToArray(obj: any): any {
-  return Object.entries(obj).map(([label, value]) => {
-    const keys = Object.keys(value as any)
-
-    // 如果子对象有value属性，直接返回data为对象
-    if (keys.length === 1 && keys[0] === 'value') {
-      return { label, data: value }
+  const keys = Object.keys(obj)
+  const group: any = {}
+  const res = keys.filter((key) => {
+    let isVal = false
+    const g = obj[key]._group || '杂货'
+    if (!key.includes('_') && 'value' in obj[key]) {
+      group[g] = group[g] || {}
+      group[g][key] = obj[key]
+      isVal = true
+    }
+    return !key.includes('_') && !isVal
+  }).map((key) => {
+    const subKeys = Object.keys(obj[key]).filter((sub_key) => {
+      return !sub_key.includes('_')
+    })
+    let isLast = false
+    for (let i = 0; i < subKeys.length; i++) {
+      if ('value' in obj[key][subKeys[i]]) {
+        isLast = true
+        break
+      }
+    }
+    if (isLast) {
+      return { label: key, data: obj[key] }
     }
 
-    // 否则递归处理子对象
-    const data = keys.length > 1
-      ? deepObjToArray(value)
-      : { [keys[0]]: (value as any)[keys[0]] }
-
-    return { label, data }
+    return {
+      label: key,
+      data: deepObjToArray(obj[key]),
+    }
   })
+  if (Object.keys(group).length) {
+    const fz = Object.keys(group).map((key) => {
+      return {
+        label: key,
+        data: group[key],
+      }
+    })
+    res.unshift(...fz)
+  }
+  return res
 }
 
 export function generatePrice(range: [number, number], suffix: string, val: any) {

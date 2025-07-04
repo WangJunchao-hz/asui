@@ -112,19 +112,144 @@ export default {
       props: {},
     },
     收货道具: {
+      分解符: {
+        _group: '杂货',
+        value: 0,
+        _open: true,
+      },
+      笼玉环: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      笼玉镯: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      笼玉甲: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      嵌宝金环: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      嵌宝金腕: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      嵌宝金甲: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
       玳瑁环: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      玳瑁护腕: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      玳瑁衣: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      七星宝环: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      七星宝腕: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      七星宝甲: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      缚龙圈: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      缚龙筋: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      缚龙甲: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      鸾尾环: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      凤翎护腕: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      凤凰彩衣: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      织锦颈圈: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      织锦彩带: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      织锦软褡: {
+        _group: '宠装',
+        value: 0,
+        _open: true,
+      },
+      天眼珠: {
+        65: {
+          value: 0,
+          _open: true,
+        },
+        75: {
+          value: 0,
+          _open: true,
+        },
+        85: {
+          value: 0,
+          _open: true,
+        },
+        95: {
+          value: 0,
+          _open: true,
+        },
+        105: {
+          value: 0,
+          _open: true,
+        },
         115: {
           value: 0,
+          _open: true,
         },
-      },
-      九眼天珠: {
-        115: {
-          99: {
-            value: 0,
-          },
-          100: {
-            value: 0,
-          },
+        125: {
+          value: 0,
+          _open: true,
         },
       },
     },

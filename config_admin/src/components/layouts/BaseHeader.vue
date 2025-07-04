@@ -50,23 +50,23 @@ function handleChange(type: 0 | 1) {
     <el-menu-item index="">
       <el-button-group>
         <el-button
-          style="padding-left: 12px;padding-right: 8px;" title="新增" :icon="Plus"
+          type="info" plain style="padding-left: 12px;padding-right: 8px;" title="新增" :icon="Plus"
           @click.stop="handleClick('add')"
         />
         <el-button
-          style="padding-left: 12px;padding-right: 8px;" :disabled="active.cfg === '默认'" title="删除"
-          :icon="Delete" @click.stop="handleClick('delete')"
+          type="danger" plain style="padding-left: 12px;padding-right: 8px;" :disabled="active.cfg === '默认'"
+          title="删除" :icon="Delete" @click.stop="handleClick('delete')"
         />
         <el-button
-          style="padding-left: 12px;padding-right: 8px;" title="保存" :icon="Finished"
+          type="primary" plain style="padding-left: 12px;padding-right: 8px;" title="保存" :icon="Finished"
           @click.stop="handleClick('save')"
         />
         <el-button
-          style="padding-left: 12px;padding-right: 8px;" title="复制" :icon="CopyDocument"
+          type="success" plain style="padding-left: 12px;padding-right: 8px;" title="复制" :icon="CopyDocument"
           @click.stop="handleClick('copy')"
         />
         <el-button
-          style="padding-left: 12px;padding-right: 8px;" title="重置" :icon="Refresh"
+          type="warning" plain style="padding-left: 12px;padding-right: 8px;" title="重置" :icon="Refresh"
           @click.stop="handleClick('clear')"
         />
       </el-button-group>
