@@ -5,6 +5,7 @@ const localOpts = [
 ]
 const typeOpts = [
   { label: '收货', value: '收货' },
+  { label: '收购', value: '收购' },
   { label: '摆摊', value: '摆摊' },
 ]
 const noticeTypeOpts = [
@@ -251,6 +252,33 @@ export default {
           value: 0,
           _open: true,
         },
+      },
+    },
+  },
+  收购设置: {
+    最少金币: {
+      value: 100000,
+      type: 'number',
+      desc: '现金如果低于此值，不能进行收货',
+      comp: 'inputNumber',
+      props: {
+        min: 1000,
+        step: 1000,
+      },
+    },
+    收货地点: {
+      value: '傲来国',
+      type: 'string',
+      comp: 'select',
+      options: localOpts,
+    },
+    收货坐标: {
+      isCoord: true,
+      x: {
+        value: 160,
+      },
+      y: {
+        value: 102,
       },
     },
   },
