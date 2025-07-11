@@ -86,11 +86,11 @@ export default {
       isRange: true,
       desc: '当前喊话时间间隔,区间随机间隔喊话模拟人的行为,最少10s',
       start: {
-        value: 10,
+        value: 15,
         min: 10,
       },
       end: {
-        value: 15,
+        value: 20,
         min: 10,
       },
     },
@@ -102,157 +102,222 @@ export default {
         min: 300,
       },
       end: {
-        value: 420,
+        value: 360,
         min: 300,
+      },
+    },
+    取消交易: {
+      value: 180,
+      type: 'number',
+      desc: '如果对方长时间没有响应主动取消交易，默认3分钟',
+      comp: 'inputNumber',
+      props: {
+        min: 0,
+        step: 60,
+      },
+    },
+    喊话模板: {
+      value: '#W收垃圾宠装 85-95=${嵌宝金环} 105=${玳瑁环} 115=${七星宝环} 125-135=${鸾尾环} 145=${织锦颈圈} #Y天眼珠 65-95=${天眼珠_95} 105-125=${天眼珠_125} 分解符=${分解符} #W灵石 速=${精魄灵石_速度} 伤=${精魄灵石_伤害} 血=${精魄灵石_气血} 灵=${精魄灵石_灵力} 防=${精魄灵石_防御}',
+      type: 'textarea',
+      desc: '${xx}xx必须跟下面道具名一致，否则无法解析',
+      comp: 'input',
+      width: '666px',
+      props: {
+        rows: 4,
       },
     },
     喊话内容: {
       value: '',
-      type: 'string',
+      type: 'textarea',
       comp: 'input',
-      props: {},
+      width: '666px',
+      props: {
+        rows: 4,
+      },
     },
     收货道具: {
-      分解符: {
+      月华露: {
         _group: '杂货',
-        value: 0,
+        value: 70000,
         _open: true,
       },
-      笼玉环: {
-        _group: '宠装',
-        value: 0,
+      黑宝石: {
+        _group: '宝石',
+        value: 150000,
         _open: true,
       },
-      笼玉镯: {
-        _group: '宠装',
-        value: 0,
+      星辉石: {
+        _group: '宝石',
+        value: 150000,
         _open: true,
       },
-      笼玉甲: {
-        _group: '宠装',
-        value: 0,
+      红玛瑙: {
+        _group: '宝石',
+        value: 65000,
         _open: true,
       },
-      嵌宝金环: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      嵌宝金腕: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      嵌宝金甲: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      玳瑁环: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      玳瑁护腕: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      玳瑁衣: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      七星宝环: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      七星宝腕: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      七星宝甲: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      缚龙圈: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      缚龙筋: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      缚龙甲: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      鸾尾环: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      凤翎护腕: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      凤凰彩衣: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      织锦颈圈: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      织锦彩带: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      织锦软褡: {
-        _group: '宠装',
-        value: 0,
-        _open: true,
-      },
-      天眼珠: {
-        65: {
-          value: 0,
-          _open: true,
-        },
-        75: {
-          value: 0,
-          _open: true,
-        },
-        85: {
-          value: 0,
-          _open: true,
-        },
-        95: {
-          value: 0,
-          _open: true,
-        },
-        105: {
-          value: 0,
-          _open: true,
-        },
-        115: {
-          value: 0,
-          _open: true,
-        },
-        125: {
-          value: 0,
-          _open: true,
-        },
-      },
+      // 分解符: {
+      //   _group: '杂货',
+      //   value: 1300,
+      //   _open: true,
+      // },
+      // 笼玉环: {
+      //   _group: '宠装',
+      //   value: 10000,
+      //   _open: true,
+      // },
+      // 笼玉镯: {
+      //   _group: '宠装',
+      //   value: 10000,
+      //   _open: true,
+      // },
+      // 笼玉甲: {
+      //   _group: '宠装',
+      //   value: 10000,
+      //   _open: true,
+      // },
+      // 嵌宝金环: {
+      //   _group: '宠装',
+      //   value: 10000,
+      //   _open: true,
+      // },
+      // 嵌宝金腕: {
+      //   _group: '宠装',
+      //   value: 10000,
+      //   _open: true,
+      // },
+      // 嵌宝金甲: {
+      //   _group: '宠装',
+      //   value: 10000,
+      //   _open: true,
+      // },
+      // 玳瑁环: {
+      //   _group: '宠装',
+      //   value: 50000,
+      //   _open: true,
+      // },
+      // 玳瑁护腕: {
+      //   _group: '宠装',
+      //   value: 50000,
+      //   _open: true,
+      // },
+      // 玳瑁衣: {
+      //   _group: '宠装',
+      //   value: 50000,
+      //   _open: true,
+      // },
+      // 七星宝环: {
+      //   _group: '宠装',
+      //   value: 70000,
+      //   _open: true,
+      // },
+      // 七星宝腕: {
+      //   _group: '宠装',
+      //   value: 70000,
+      //   _open: true,
+      // },
+      // 七星宝甲: {
+      //   _group: '宠装',
+      //   value: 70000,
+      //   _open: true,
+      // },
+      // 缚龙圈: {
+      //   _group: '宠装',
+      //   value: 90000,
+      //   _open: true,
+      // },
+      // 缚龙筋: {
+      //   _group: '宠装',
+      //   value: 90000,
+      //   _open: true,
+      // },
+      // 缚龙甲: {
+      //   _group: '宠装',
+      //   value: 90000,
+      //   _open: true,
+      // },
+      // 鸾尾环: {
+      //   _group: '宠装',
+      //   value: 90000,
+      //   _open: true,
+      // },
+      // 凤翎护腕: {
+      //   _group: '宠装',
+      //   value: 90000,
+      //   _open: true,
+      // },
+      // 凤凰彩衣: {
+      //   _group: '宠装',
+      //   value: 90000,
+      //   _open: true,
+      // },
+      // 织锦颈圈: {
+      //   _group: '宠装',
+      //   value: 100000,
+      //   _open: true,
+      // },
+      // 织锦彩带: {
+      //   _group: '宠装',
+      //   value: 100000,
+      //   _open: true,
+      // },
+      // 织锦软褡: {
+      //   _group: '宠装',
+      //   value: 100000,
+      //   _open: true,
+      // },
+      // 精魄灵石: {
+      //   速度: {
+      //     value: 80000,
+      //     _open: true,
+      //   },
+      //   伤害: {
+      //     value: 70000,
+      //     _open: true,
+      //   },
+      //   气血: {
+      //     value: 60000,
+      //     _open: true,
+      //   },
+      //   灵力: {
+      //     value: 50000,
+      //     _open: true,
+      //   },
+      //   防御: {
+      //     value: 10000,
+      //     _open: true,
+      //   },
+      // },
+      // 天眼珠: {
+      //   65: {
+      //     value: 30000,
+      //     _open: true,
+      //   },
+      //   75: {
+      //     value: 30000,
+      //     _open: true,
+      //   },
+      //   85: {
+      //     value: 30000,
+      //     _open: true,
+      //   },
+      //   95: {
+      //     value: 30000,
+      //     _open: true,
+      //   },
+      //   105: {
+      //     value: 50000,
+      //     _open: true,
+      //   },
+      //   115: {
+      //     value: 50000,
+      //     _open: true,
+      //   },
+      //   125: {
+      //     value: 50000,
+      //     _open: true,
+      //   },
+      // },
     },
   },
   收购设置: {

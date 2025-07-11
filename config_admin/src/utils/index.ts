@@ -1,3 +1,24 @@
+export function getConfigBySchema(schema: any) {
+  const obj = getObjByFields(schema, ['value', '_open'], ['options'])
+  return obj
+}
+export function getObjByFields(obj: any, reserve: string[], exclude: string[] = []) {
+  const res: any = {}
+  if (Object.prototype.toString.call(obj) === '[object Object]') {
+    for (const key in obj) {
+      if (reserve.includes(key)) {
+        res[key] = obj[key]
+      }
+      else if (!exclude.includes(key) && Object.prototype.toString.call(obj[key]) === '[object Object]') {
+        const val = getObjByFields(obj[key], reserve, exclude)
+        if (Object.keys(val).length) {
+          res[key] = val
+        }
+      }
+    }
+  }
+  return res
+}
 /**
  * 深度合并两个JSON配置对象
  * @param {object} newJson 新配置文件
@@ -78,10 +99,15 @@ export function deepObjToArray(obj: any): any {
   const group: any = {}
   const res = keys.filter((key) => {
     let isVal = false
-    const g = obj[key]._group || '杂货'
+    let g = ''
+    if ('_group' in obj[key]) {
+      g = obj[key]._group || '杂货'
+    }
     if (!key.includes('_') && 'value' in obj[key]) {
-      group[g] = group[g] || {}
-      group[g][key] = obj[key]
+      if (g) {
+        group[g] = group[g] || {}
+        group[g][key] = obj[key]
+      }
       isVal = true
     }
     return !key.includes('_') && !isVal
@@ -170,4 +196,60 @@ export function deepAdjustPrice(obj: any, val: any) {
       }
     }
   }
+}
+
+export function handleDaoJuChange(type: '启用' | '禁用' | '调价', obj: any, keys: string[], params?: any) {
+  if (keys && keys.length) {
+    for (const key of keys) {
+      if (obj[key]) {
+        obj = obj[key]
+      }
+    }
+  }
+}
+
+export function handleHanHuaTpl(tpl: string, djs: any) {
+  // 1. 提取所有${xx}变量
+  const variables = [...new Set(tpl.match(/\$\{([^}]+)\}/g))]
+  // console.log('提取到的变量:', variables)
+  let res = tpl
+  variables.forEach((variable: any) => {
+    const key = variable.slice(2, -1) // 去掉${}
+    const keys = key.split('_')
+    let dj = djs
+    for (const k of keys) {
+      if (k in dj) {
+        dj = dj[k]
+      }
+    }
+    if (dj && 'value' in dj) {
+      // console.log(dj)
+      let price = dj.value
+      if (key.includes('分解符')) {
+        price = price * 30
+      }
+      price = `${removeTrailingZeros((price / 10000).toFixed(2))}w`
+      // console.log(price)
+      res = res.replace(new RegExp(`\\$\\{${key}\\}`, 'g'), price)
+    }
+  })
+  return res
+}
+
+function removeTrailingZeros(num: any) {
+  // 转为字符串处理
+  const str = num.toString()
+
+  // 如果没有小数点直接返回
+  if (!str.includes('.'))
+    return str
+
+  // 分离整数和小数部分
+  const [integer, decimal] = str.split('.')
+
+  // 去除小数部分末尾的零
+  const trimmedDecimal = decimal.replace(/0+$/, '')
+
+  // 重组数字（如果小数部分全被去除则不保留小数点）
+  return trimmedDecimal ? `${integer}.${trimmedDecimal}` : integer
 }

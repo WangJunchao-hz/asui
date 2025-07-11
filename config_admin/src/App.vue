@@ -5,7 +5,7 @@ import { computed, provide, ref } from 'vue'
 import useClipboard from 'vue-clipboard3'
 import default_data from './defaults'
 import daoJuMap from './defaults/dao_ju'
-import { deepMergeConfig } from './utils'
+import { deepMergeConfig, getConfigBySchema } from './utils'
 
 const { toClipboard } = useClipboard()
 provide('DaoJuMap', daoJuMap)
@@ -65,12 +65,15 @@ function handleHeadClick(type: 'add' | 'delete' | 'save' | 'copy' | 'clear', dat
       ElMessage.success('保存成功')
       break
     case 'copy':
-      toClipboard(JSON.stringify(config.value)).then(() => {
-        ElMessage.success('复制成功')
-        saveData()
-      }).catch(() => {
-        ElMessage.error('复制失败')
-      })
+      {
+        const copyCfg = getConfigBySchema(config.value)
+        toClipboard(JSON.stringify(copyCfg)).then(() => {
+          ElMessage.success('复制成功')
+          saveData()
+        }).catch(() => {
+          ElMessage.error('复制失败')
+        })
+      }
       break
     case 'delete':
       ElMessageBox.confirm(

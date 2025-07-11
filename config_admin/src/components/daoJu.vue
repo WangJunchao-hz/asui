@@ -85,7 +85,10 @@ function addDaoJu() {
     }
   }
   else {
-    data.value[name] = { _group: addForm.value.group }
+    data.value[name] = {}
+    if (addForm.value.group) {
+      data.value[name]._group = addForm.value.group
+    }
     let single = data.value[name]
     if (props.length) {
       for (let i = 0; i < props.length; i++) {
@@ -127,6 +130,8 @@ function handleBtnClick(type: '新增' | '启用' | '禁用' | '调价', params?
   switch (type) {
     case '新增':
       addModal.value.visible = true
+      break
+    case '启用':
       break
   }
 }

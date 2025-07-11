@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { QuestionFilled } from '@element-plus/icons-vue'
-import { computed, ref, toRefs } from 'vue'
+import { computed, ref, toRefs, watch } from 'vue'
 import DaoJu from './daoJu.vue'
+import { handleHanHuaTpl } from '../utils'
 
 const props = defineProps<{ config: any }>()
 const { config } = toRefs(props)
@@ -15,6 +16,15 @@ const lists = computed(() => {
 		return !flag
 	})
 })
+const djs = computed(() => {
+	return props.config[djKey.value]
+})
+watch(djs, () => {
+	if (Object.keys(props.config).includes('喊话模板')) {
+		const tpl = props.config['喊话模板'].value
+		props.config['喊话内容'].value = handleHanHuaTpl(tpl, djs.value)
+	}
+}, { deep: true })
 </script>
 
 <template>
@@ -31,7 +41,8 @@ const lists = computed(() => {
 						</el-tooltip>
 					</span>
 				</template>
-				<el-input v-if="config[list].comp === 'input'" v-model="config[list].value" :type="config[list].type"
+				<el-input v-if="config[list].comp === 'input'" :style="{ width: config[list].width || '240px' }"
+					v-model="config[list].value" :type="config[list].type" :rows="config[list].props.rows"
 					:placeholder="config[list].props.placeholder" />
 				<el-input-number v-if="config[list].comp === 'inputNumber'" v-model="config[list].value"
 					:precision="config[list].props.precision" :step="config[list].props.step" :max="config[list].props.max"
